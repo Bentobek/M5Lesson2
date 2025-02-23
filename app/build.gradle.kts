@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id ("kotlin-kapt")
+    id ("com.google.dagger.hilt.android")
 }
 
 android {
@@ -41,6 +43,10 @@ android {
 dependencies {
 
 
+    //    Hilt
+    implementation ("com.google.dagger:hilt-android:2.51.1")
+    kapt ("com.google.dagger:hilt-compiler:2.51.1")
+
 implementation(libs.support.annotations)
     //    NavGraph
     val nav_version = "2.8.4"
@@ -54,6 +60,7 @@ implementation(libs.support.annotations)
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
 
+    // Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

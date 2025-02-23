@@ -2,35 +2,40 @@ package com.example.m5lesson2
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.m5lesson2.databinding.ActivityMainBinding
 import com.example.m5lesson2.model.CharacterViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val binding by lazy {ActivityMainBinding.inflate(layoutInflater)}
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: CharacterViewModel
     private lateinit var adapter: CharacterAdapter
-    private val characterList = mutableListOf<com.example.m5lesson2.model.Character>()
-    private val viewModel by lazy { ViewModelProvider(this).get(CharacterViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this).get(CharacterViewModel::class.java)
+        val viewModel: CharacterViewModel by viewModels()
+
+        adapter = CharacterAdapter(characters = emptyList())
         binding.rvRickAndMorty.layoutManager = LinearLayoutManager(this)
-        adapter = CharacterAdapter(characterList)
         binding.rvRickAndMorty.adapter = adapter
 
-        observeViewModel()
-    }
-
-    private fun observeViewModel() {
         viewModel.characters.observe(this) { characters ->
-            adapter.updateList(characters)
+            if (characters != null) {
+                adapter.updateList(characters)
+            }
         }
-    }
 
+        viewModel.fetchCharacters()
+    }
 }
