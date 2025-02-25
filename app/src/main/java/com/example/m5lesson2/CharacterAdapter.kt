@@ -6,25 +6,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.m5lesson2.databinding.ItemSeriesBinding
-import com.example.m5lesson2.model.Character
+import com.example.m5lesson2.data.model.Characters
 
-class CharacterAdapter(private var characters: List<Character>) : RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
+class CharacterAdapter(private var characters: List<Characters>) : RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
 
     class ViewHolder(private val binding: ItemSeriesBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(character: Character) {
+        fun bind(character: Characters) {
             binding.tvName.text = character.name
             binding.tvSpecies.text = character.species
             binding.tvStatus.text = "Status: ${character.status}"
 
-            Glide.with(binding.ivRick.context)
-                .load(character.image)
-                .into(binding.ivRick)
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateList(newCharacters: List<Character>) {
+    fun updateList(newCharacters: List<Characters>) {
         characters = newCharacters
         notifyDataSetChanged()
     }

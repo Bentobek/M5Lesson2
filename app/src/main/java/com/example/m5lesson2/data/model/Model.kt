@@ -1,15 +1,19 @@
-package com.example.m5lesson2.model
+package com.example.m5lesson2.data.model
 
 import com.google.gson.annotations.SerializedName
 
 data class Info(
+        @SerializedName("count")
         val count: Int,
+        @SerializedName("pages")
         val pages: Int,
-        val next: String?,
-        val prev: String?
+        @SerializedName("next")
+        val next: String? = null,
+        @SerializedName("prev")
+        val prev: String? = null,
     )
 
-data class Character(
+data class Characters(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("status") val status: String,

@@ -41,7 +41,9 @@ android {
 }
 
 dependencies {
-
+    val paging_version = "3.3.2"
+    // Paging
+    implementation ("androidx.paging:paging-runtime:$paging_version")
 
     //    Hilt
     implementation ("com.google.dagger:hilt-android:2.51.1")
